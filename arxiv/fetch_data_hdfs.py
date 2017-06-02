@@ -6,7 +6,7 @@ import os
 
 retry_time = 45
 
-def get_raw_data(path):
+def get_raw_data():
 	start = time.clock()
 	query = "http://export.arxiv.org/oai2?verb=ListRecords&metadataPrefix=oai_dc"
 	print("request: %s" % (query))
@@ -65,11 +65,11 @@ def save_to_hdfs(filename):
 		if out == 0:
 			call("hdfs dfs -rm %s" % (file), shell=True)
 			print("file exists, delete old one")
-		call(['hdfs','dfs','-put', filename, path])
+		call(['hdfs','dfs','-put', filename, save_path])
 		print("send papers_0.xml to hdfs")
 	except Exception as e:
 		print("save %s to hdfs failed" % (filename))
 
 if __name__ == '__main__':
 	save_path = sys.argv[1]
-	get_raw_data(save_path)
+	get_raw_data()
