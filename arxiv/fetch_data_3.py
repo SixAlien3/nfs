@@ -15,7 +15,6 @@ def get_raw_data():
 	
 	end = time.clock()
 	print("takes: %f s" % (end-start))
-	get_resume(response)
 
 	pos_start = response.rfind('<resumptionToken')
 	pos_end = response.rfind('</resumptionToken')
