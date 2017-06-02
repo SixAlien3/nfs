@@ -64,9 +64,9 @@ def save_to_hdfs(filename):
 		out = call("hdfs dfs -test -e %s" % (file), shell=True)
 		if out == 0:
 			call("hdfs dfs -rm %s" % (file), shell=True)
-			print("file exists, delete old one")
+			print("file %s exists, delete old one" % (file))
 		call(['hdfs','dfs','-put', filename, save_path])
-		print("send papers_0.xml to hdfs")
+		print("send %s to hdfs" % (filename))
 	except Exception as e:
 		print("save %s to hdfs failed" % (filename))
 
