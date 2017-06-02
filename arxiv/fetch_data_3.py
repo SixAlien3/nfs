@@ -8,7 +8,7 @@ def get_raw_data():
 	query = "http://export.arxiv.org/oai2?verb=ListRecords&metadataPrefix=oai_dc"
 	print("request: %s" % (query))
 	request = urllib.request.Request(query)
-	response = urllib2.request.urlopen(request).read()
+	response = urllib.request.urlopen(request).read().decode('utf-8')
 	rawfile = open('papers_0.xml','w')
 	rawfile.write(response)
 	rawfile.close()
@@ -27,11 +27,11 @@ def get_raw_data():
 def get_resume(token):
 	time.sleep(retry_time)
 	start = time.clock()
-	rawfile = open('papers_%s.xml'%(token),'w')
+	rawfile = open('papers_%s.xml'%(token.replace('|','_')),'w')
 	try:
 		query = "http://export.arxiv.org/oai2?verb=ListRecords&resumptionToken=%s" % (token)
 		request = urllib.request.Request(query)
-		response = urllib.request.urlopen(request).read()
+		response = urllib.request.urlopen(request).read().decode('utf-8')
 		rawfile.write(response)
 		rawfile.close()
 		end = time.clock()
